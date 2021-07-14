@@ -99,7 +99,6 @@ def main():
     droped = df.delete_first_column()
 
 
-    print(droped.extract_nonzero_data())
 
 
 if __name__ == '__main__':
