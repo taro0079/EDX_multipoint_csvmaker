@@ -2,15 +2,6 @@ import sys
 
 import numpy as np
 import pandas as pd
-import re
-#f = open("./AUTO131.csv")
-#lines = f.readlines()[5::]
-#splitline = [i.split(sep=",") for i in lines]
-#ind = splitline[0].index("At%")
-#deletedline = [i[ind::] for i in splitline]
-#print(deletedline)
-
-
 
 
 class fileread:
