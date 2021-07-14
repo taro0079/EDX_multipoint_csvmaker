@@ -65,17 +65,22 @@ class dataFrameManipulate:
     def _sum_of_data(self):
         return self.__data.sum()
 
-    def sum_is_nonzero(self):
+    def _sum_is_nonzero(self):
         return self._sum_of_data() != 0
 
-    def nonzero_column(self):
-        return self.sum_is_nonzero()[self.sum_is_nonzero() == True].index
+    def _nonzero_column(self):
+        return self._sum_is_nonzero()[self._sum_is_nonzero() == True].index
 
-    def extract_nonzero_data(self):
-        return self.__data[self.nonzero_column()]
+    def _extract_nonzero_data(self):
+        return dataFrameManipulate(self.__data[self._nonzero_column()])
 
     def show_data(self):
         return self.__data
+
+    def dataframe_process(self):
+        droped_data = self.delete_first_column()
+        nonzerodata = droped_data._extract_nonzero_data()
+        return nonzerodata
 
 class relativeDistance:
     def __init__(self, pointnumber):
@@ -96,10 +101,8 @@ def main():
     newfile = fileread("./AUTO131.CSV")
     data = newfile.readdata()
     df = data.create_dataframe()
-    droped = df.delete_first_column()
-
-
-    print(droped.extract_nonzero_data())
+    processed_data = df.dataframe_process()
+    processed_data.show_data().to_csv("processeddata.csv")
 
 
 if __name__ == '__main__':
