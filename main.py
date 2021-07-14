@@ -62,7 +62,7 @@ class dataFrameManipulate:
         dropeddata = self.__data.drop(first_column, axis=1)
         return dataFrameManipulate(dropeddata)
 
-    def _sum_of_data(self):
+     def _sum_of_data(self):
         return self.__data.sum()
 
     def sum_is_nonzero(self):
@@ -72,7 +72,11 @@ class dataFrameManipulate:
         return self.sum_is_nonzero()[self.sum_is_nonzero() == True].index
 
     def extract_nonzero_data(self):
-        return self.__data[self.nonzero_column()]
+        return dataFrameManipulate(self.__data[self.nonzero_column()])
+
+    def add_realative_distance(self, relativedistance):
+        return self.__data.insert(0, 'Relativedisntace', relativedistance)
+
 
     def show_data(self):
         return self.__data
@@ -92,14 +96,30 @@ class relativeDistance:
     def make_incremental(self):
         return np.linspace(0, 1, self.pointnumber)
 
+class analysisNumber():
+    def __init__(self, analysis_number):
+        self.__MAX = 10
+        self.__MIN = 1
+        if analysis_number > self.__MAX:
+            print("analysis number is too big !")
+            sys.exit(0)
+        elif analysis_number < self.__MIN:
+            print("analysis number is too small !")
+            sys.exit(0)
+        self.__analysis_number = analysis_number
+
 def main():
     newfile = fileread("./AUTO131.CSV")
     data = newfile.readdata()
     df = data.create_dataframe()
     droped = df.delete_first_column()
+    nonzerodata = droped.extract_nonzero_data()
+    point = relativeDistance(20)
+    relativedistance = point.make_incremental()
+    alldata = nonzerodata.add_realative_distance(relativedistance)
+    print(alldata)
 
 
-    print(droped.extract_nonzero_data())
 
 
 if __name__ == '__main__':
