@@ -1,3 +1,6 @@
+import sys
+
+import numpy as np
 import pandas as pd
 import re
 #f = open("./AUTO131.csv")
@@ -82,6 +85,21 @@ class dataFrameManipulate:
 
     def show_data(self):
         return self.__data
+
+class relativeDistance:
+    def __init__(self, pointnumber):
+        self.MAX = 50
+        self.MIN = 1
+        if pointnumber > self.MAX:
+            print("too bigger number of point !")
+            sys.exit(0)
+        elif pointnumber < self.MIN:
+            print("too small number of point !")
+            sys.exit(0)
+        self.pointnumber = pointnumber
+
+    def make_incremental(self):
+        return np.linspace(0, 1, self.pointnumber)
 
 def main():
     newfile = fileread("./AUTO131.CSV")
